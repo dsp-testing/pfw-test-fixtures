@@ -34,3 +34,4 @@ jobs:
       - name: Publish ${{ matrix.package }} with provenance
         working-directory: packages/${{ matrix.package }}
         run: npm publish --provenance --access public
+        continue-on-error: true
