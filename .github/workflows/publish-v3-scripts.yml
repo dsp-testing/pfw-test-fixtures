@@ -1,0 +1,29 @@
+# Publishes pfw-fixture-install-script v3.0.0 with provenance.
+# This version adds a postinstall script but retains provenance,
+# testing install script introduction detection independently of
+# attestation downgrade detection.
+#
+# Trigger: git tag v3.0.0-scripts && git push origin v3.0.0-scripts
+name: Publish install-script v3 with provenance
+
+on:
+  push:
+    tags:
+      - 'v3.0.0-scripts'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Publish pfw-fixture-install-script with provenance
+        working-directory: packages/pfw-fixture-install-script
+        run: npm publish --provenance --access public
