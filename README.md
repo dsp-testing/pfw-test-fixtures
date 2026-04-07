@@ -1,4 +1,4 @@
-# pfw-test-fixtures
+# pfw-fixture-fixtures
 
 Test fixture packages for [package-firewall](https://github.com/github/package-firewall) end-to-end testing.
 
@@ -6,9 +6,9 @@ Test fixture packages for [package-firewall](https://github.com/github/package-f
 
 | Package | Purpose | v1.0.0 (local) | v2.0.0 (GHA + trusted publishing) | v3.0.0 (local) |
 |---------|---------|----------------|-------------------------------------|----------------|
-| `pfw-test-install-script` | Install script detection | No scripts, no provenance | No scripts, with provenance | Adds `postinstall`, no provenance |
-| `pfw-test-attestation` | Attestation downgrade detection | No provenance | With provenance | No provenance |
-| `pfw-test-combined` | Combined signal detection | No scripts, no provenance | No scripts, with provenance | Adds `postinstall`, no provenance |
+| `pfw-fixture-install-script` | Install script detection | No scripts, no provenance | No scripts, with provenance | Adds `postinstall`, no provenance |
+| `pfw-fixture-attestation` | Attestation downgrade detection | No provenance | With provenance | No provenance |
+| `pfw-fixture-combined` | Combined signal detection | No scripts, no provenance | No scripts, with provenance | Adds `postinstall`, no provenance |
 
 v1.0.0 establishes that the package existed without provenance (baseline).
 v2.0.0 upgrades to trusted publishing with provenance.
@@ -21,14 +21,14 @@ The proxy should block v3.0.0 but NOT v1.0.0, even though both lack provenance.
 ### Prerequisites
 Configure a trusted publisher on npmjs.com for each package:
 - **Organization/user**: `dsp-testing`
-- **Repository**: `pfw-test-fixtures`
+- **Repository**: `pfw-fixture-fixtures`
 - **Workflow**: `publish.yml`
 
 ### Step 1: Publish v1.0.0 locally (no provenance)
 
 ```bash
 npm login
-for pkg in pfw-test-install-script pfw-test-attestation pfw-test-combined; do
+for pkg in pfw-fixture-install-script pfw-fixture-attestation pfw-fixture-combined; do
   (cd packages/$pkg && npm publish --access public)
 done
 ```
@@ -46,7 +46,7 @@ The workflow publishes all three packages at v2.0.0 with `--provenance`.
 
 ```bash
 ./prepare-v3.sh
-for pkg in pfw-test-install-script pfw-test-attestation pfw-test-combined; do
+for pkg in pfw-fixture-install-script pfw-fixture-attestation pfw-fixture-combined; do
   (cd packages/$pkg && npm publish)
 done
 ```
@@ -59,16 +59,16 @@ With both Vexi flags enabled, the proxy should:
 PROXY=http://localhost:18080/npm/enterprises/test-enterprise
 
 # v3.0.0 should be filtered (attestation downgrade from v2.0.0)
-curl -H "Authorization: Bearer $TOKEN" "$PROXY/pfw-test-attestation" | jq '.versions | keys'
+curl -H "Authorization: Bearer $TOKEN" "$PROXY/pfw-fixture-attestation" | jq '.versions | keys'
 # Expected: ["1.0.0", "2.0.0"] — v3.0.0 filtered out
 
 # v1.0.0 should NOT be filtered (no prior version had provenance)
 # v3.0.0 should be filtered (install script + attestation downgrade)
-curl -H "Authorization: Bearer $TOKEN" "$PROXY/pfw-test-combined" | jq '.versions | keys'
+curl -H "Authorization: Bearer $TOKEN" "$PROXY/pfw-fixture-combined" | jq '.versions | keys'
 # Expected: ["1.0.0", "2.0.0"] — v3.0.0 filtered out
 
 # Tarball block
 curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $TOKEN" \
-  "$PROXY/pfw-test-attestation/-/pfw-test-attestation-3.0.0.tgz"
+  "$PROXY/pfw-fixture-attestation/-/pfw-fixture-attestation-3.0.0.tgz"
 # Expected: 403
 ```

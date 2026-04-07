@@ -1,6 +1,6 @@
 {
-  "name": "pfw-test-install-script",
-  "version": "2.0.0",
+  "name": "pfw-fixture-install-script",
+  "version": "1.0.0",
   "description": "Package-firewall test fixture: install script introduction detection",
   "main": "index.js",
   "scripts": {

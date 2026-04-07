@@ -1,6 +1,6 @@
 {
-  "name": "pfw-test-combined",
-  "version": "2.0.0",
+  "name": "pfw-fixture-combined",
+  "version": "1.0.0",
   "description": "Package-firewall test fixture: combined attestation downgrade + install script detection",
   "main": "index.js",
   "scripts": {

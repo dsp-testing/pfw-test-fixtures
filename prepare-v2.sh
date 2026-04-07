@@ -12,7 +12,7 @@ set -euo pipefail
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-for pkg in pfw-test-install-script pfw-test-attestation pfw-test-combined; do
+for pkg in pfw-fixture-install-script pfw-fixture-attestation pfw-fixture-combined; do
   cd "packages/$pkg"
   npm version 2.0.0 --no-git-tag-version
   echo "✅ $pkg bumped to 2.0.0"

@@ -22,9 +22,9 @@ jobs:
     strategy:
       matrix:
         package:
-          - pfw-test-install-script
-          - pfw-test-attestation
-          - pfw-test-combined
+          - pfw-fixture-install-script
+          - pfw-fixture-attestation
+          - pfw-fixture-combined
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
