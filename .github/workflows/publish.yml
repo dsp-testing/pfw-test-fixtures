@@ -1,5 +1,8 @@
-# Publishes all test fixture packages with provenance.
+# Publishes all test fixture packages with provenance via trusted publishing.
 # Trigger by pushing a tag: git tag v1.0.0 && git push origin v1.0.0
+#
+# Prerequisites: configure a trusted publisher on npmjs.com for each package
+# pointing to dsp-testing/pfw-test-fixtures with workflow publish.yml.
 name: Publish with provenance
 
 on:
@@ -29,5 +32,3 @@ jobs:
       - name: Publish ${{ matrix.package }} with provenance
         working-directory: packages/${{ matrix.package }}
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

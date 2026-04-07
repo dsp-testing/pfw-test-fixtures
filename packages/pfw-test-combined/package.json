@@ -1,10 +1,11 @@
 {
   "name": "pfw-test-combined",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Package-firewall test fixture: combined attestation downgrade + install script detection",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"test\""
+    "test": "echo \"test\"",
+    "postinstall": "echo pfw-test-postinstall"
   },
   "repository": {
     "type": "git",
