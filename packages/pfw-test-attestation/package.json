@@ -1,6 +1,6 @@
 {
   "name": "pfw-test-attestation",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Package-firewall test fixture: attestation downgrade detection",
   "main": "index.js",
   "scripts": {
