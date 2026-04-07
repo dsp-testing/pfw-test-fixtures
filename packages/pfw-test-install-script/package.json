@@ -1,11 +1,10 @@
 {
   "name": "pfw-test-install-script",
-  "version": "3.0.0",
+  "version": "2.0.0",
   "description": "Package-firewall test fixture: install script introduction detection",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"test\"",
-    "postinstall": "echo pfw-test-postinstall"
+    "test": "echo \"test\""
   },
   "license": "MIT",
   "publishConfig": {
